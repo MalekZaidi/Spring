@@ -1,6 +1,7 @@
 package tn.esprit.tpfoyer.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.tpfoyer.entity.Foyer;
 import tn.esprit.tpfoyer.entity.Universite;
@@ -8,6 +9,7 @@ import tn.esprit.tpfoyer.repository.iFoyerRepository;
 import tn.esprit.tpfoyer.repository.iUniversiteRepository;
 
 import java.util.List;
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class UniversiteServices implements iUniversiteServices {
@@ -17,6 +19,7 @@ public class UniversiteServices implements iUniversiteServices {
 
     @Override
     public Universite ajouterUniversite(Universite u) {
+        log.info("Universite ajouté");
         return UniversiteRepository.save(u);
     }
 
