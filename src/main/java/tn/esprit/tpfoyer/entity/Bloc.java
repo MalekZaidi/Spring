@@ -20,7 +20,7 @@ public class Bloc {
 
     private Long capaciteBloc;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Foyer foyer;
 
     @OneToMany(mappedBy="bloc")

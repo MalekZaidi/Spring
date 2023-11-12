@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer.entity.Chambre;
+import tn.esprit.tpfoyer.entity.TypeChambre;
 import tn.esprit.tpfoyer.service.iChambreServices;
 
 import java.util.List;
@@ -53,6 +54,11 @@ public class ChambreRestController {
         } else {
             log.warn("N'existe pas");
         }
+    }
+
+    @GetMapping("/getChambresParBlocEtType/{idBloc}/{typeC}")
+    public List<Chambre> getChambresParBlocEtType(@PathVariable Long idBloc, @PathVariable TypeChambre typeC) {
+        return chambreServices.getChambresParBlocEtType(idBloc, typeC);
     }
 }
 

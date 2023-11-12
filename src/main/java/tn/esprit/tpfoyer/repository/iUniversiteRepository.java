@@ -9,4 +9,7 @@ public interface iUniversiteRepository extends CrudRepository <Universite, Long>
 {
     @Query("SELECT u FROM Universite u WHERE u.nomUniversite = :nom")
     Universite findUniversiteByNom(@Param("nom") String nom);
+
+    Universite findUniversitesByNomUniversite(String nom);
+
 }

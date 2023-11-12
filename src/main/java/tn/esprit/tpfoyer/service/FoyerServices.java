@@ -1,9 +1,14 @@
 package tn.esprit.tpfoyer.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer.entity.Bloc;
 import tn.esprit.tpfoyer.entity.Foyer;
+import tn.esprit.tpfoyer.entity.Universite;
+import tn.esprit.tpfoyer.repository.iBlocRepository;
 import tn.esprit.tpfoyer.repository.iFoyerRepository;
+import tn.esprit.tpfoyer.repository.iUniversiteRepository;
 
 import java.util.List;
 @RequiredArgsConstructor
@@ -12,7 +17,8 @@ public class FoyerServices implements iFoyerServices {
 
    //@Autowired
     final iFoyerRepository foyerRepository;
-
+    final iBlocRepository  blocRepository;
+    final iUniversiteRepository universiteRepository;
   /*  public FoyerServices(iFoyerRepository foyerRepository) {
         this.foyerRepository = foyerRepository;
     }*/
@@ -43,4 +49,22 @@ public class FoyerServices implements iFoyerServices {
     public Foyer updateFoyer(Foyer f) {
         return foyerRepository.save(f) ;
     }
+    @Transactional
+    @Override
+    public Foyer ajouterFoyerEtAffecterAUniversite(Foyer foyer, Long idUniversite) {
+        Universite universite = universiteRepository.findById(idUniversite).orElse(null);
+
+        universite.setFoyer(foyer);
+
+        for (Bloc bloc : foyer.getBlocs()) {
+            bloc.setFoyer(foyer);
+            blocRepository.save(bloc);
+        }
+
+        return foyer;
+    }
+
+
+
+
 }

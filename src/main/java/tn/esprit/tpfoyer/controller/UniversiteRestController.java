@@ -15,10 +15,18 @@ import java.util.List;
 public class UniversiteRestController {
     private final iUniversiteServices universiteServices;
 
+
     @GetMapping("/alluniversite")
     public List<Universite> getAllUniversite() {
         return universiteServices.getAllUniversite();
     }
+
+   /* @PutMapping("/affecterfoyer/{idFoyer}/{nom}")
+    public Universite affecterUni (@PathVariable Long idFoyer,@PathVariable String nom);
+    return univServices.*/
+
+
+
 
     @PostMapping("/add")
     public Universite addUniversite(@RequestBody Universite u) {
@@ -52,4 +60,18 @@ public class UniversiteRestController {
             log.warn("N'existe pas");
         }
     }
+
+    @PutMapping("/affecterFoyer/{idFoyer}/{nomUniversite}")
+    public Universite affecterFoyerAUniversite(@PathVariable Long idFoyer, @PathVariable String nomUniversite) {
+        return universiteServices.affecterFoyerAUniversite(idFoyer, nomUniversite);
+    }
+
+    @PutMapping("/desaffecterFoyer/{idUniversite}")
+    public Universite desaffecterFoyerAUniversite(@PathVariable Long idUniversite) {
+        return universiteServices.desaffecterFoyerAUniversite(idUniversite);
+    }
 }
+
+
+
+

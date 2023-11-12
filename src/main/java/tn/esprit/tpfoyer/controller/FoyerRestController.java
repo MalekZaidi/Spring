@@ -2,7 +2,6 @@ package tn.esprit.tpfoyer.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.tpfoyer.entity.Foyer;
 import tn.esprit.tpfoyer.service.iFoyerServices;
@@ -51,6 +50,11 @@ public class FoyerRestController {
         } else {
           log.warn("N'existe pas");
         }
+    }
+
+    @PostMapping("/add/{idUniversite}")
+    public Foyer ajouterFoyerEtAffecterAUniversite(@RequestBody Foyer foyer, @PathVariable Long idUniversite) {
+        return foyerServices.ajouterFoyerEtAffecterAUniversite(foyer, idUniversite);
     }
 }
 

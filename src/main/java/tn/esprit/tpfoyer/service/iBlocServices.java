@@ -10,5 +10,7 @@ public interface iBlocServices {
     Bloc getBloc (Long idBloc);
     Bloc modifierBloc(Bloc b);
     List<Bloc> getAllBloc ();
+    Bloc affecterChambresABloc(List<Long> idChambre, Long idBloc);
+    Bloc affecterBlocAFoyer(Long idBloc, Long idFoyer) ;
 
 }

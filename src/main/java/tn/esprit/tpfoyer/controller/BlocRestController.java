@@ -53,4 +53,12 @@ public class BlocRestController {
             log.warn("N'existe pas");
         }
     }
+    @PutMapping("/affecterChambres/{idBloc}")
+    public Bloc affecterChambresABloc(@RequestBody List<Long> idChambre, @PathVariable Long idBloc) {
+        return blocServices.affecterChambresABloc(idChambre, idBloc);
+    }
+    @PutMapping("/affecterBlocFoyer/{idBloc}/{idFoyer}")
+    public Bloc affecterBlocAFoyer(@PathVariable Long idBloc, @PathVariable Long idFoyer) {
+        return blocServices.affecterBlocAFoyer(idBloc, idFoyer);
+    }
 }

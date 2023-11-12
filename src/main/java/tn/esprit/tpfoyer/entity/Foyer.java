@@ -23,6 +23,6 @@ public class Foyer {
     @OneToOne(mappedBy = "foyer")
     private Universite universite;
 
-    @OneToMany(mappedBy="foyer")
+    @OneToMany(mappedBy="foyer", fetch = FetchType.EAGER)
     private Set<Bloc> blocs;
 }

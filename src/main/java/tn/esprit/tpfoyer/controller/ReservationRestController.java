@@ -19,27 +19,8 @@ public class ReservationRestController {
         return reservationServices.getAllReservation();
     }
 
-    @PostMapping("/add")
-    public Reservation addReservation(@RequestBody Reservation r) {
-        return reservationServices.ajouterReservation(r);
-    }
 
-    @PutMapping("/update/{idReservation}")
-    public Reservation updateReservation(@PathVariable String idReservation, @RequestBody Reservation updatedReservation) {
-        Reservation existingReservation = reservationServices.getReservation(idReservation);
 
-        if (existingReservation != null) {
-            // Mettez à jour les attributs de la réservation existante avec les nouvelles valeurs
-            existingReservation.setAnneeUniversitaire(updatedReservation.getAnneeUniversitaire());
-            existingReservation.setEstValide(updatedReservation.getEstValide());
-            existingReservation.setEtudiants(updatedReservation.getEtudiants());
-
-            // Enregistrez la réservation mise à jour
-            return reservationServices.modifierReservation(existingReservation);
-        } else {
-            return null;
-        }
-    }
 
     @DeleteMapping("/delete/{idReservation}")
     public void deleteReservation(@PathVariable String idReservation) {
@@ -52,5 +33,17 @@ public class ReservationRestController {
             log.warn("N'existe pas");
         }
     }
+
+    @PostMapping("/add/{idChambre}/{cin}")
+    public Reservation ajouterReservation(@PathVariable Long idChambre, @PathVariable Long cin) {
+        return reservationServices.ajouterReservation(idChambre,cin);
+    }
+
+    @PutMapping("/annulerReservation/{cin}")
+    public Reservation annulerReservation(@PathVariable Long cin) {
+
+        return reservationServices.annulerReservation(cin);
+    }
 }
+
 

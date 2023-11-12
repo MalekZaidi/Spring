@@ -3,12 +3,15 @@ package tn.esprit.tpfoyer.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tn.esprit.tpfoyer.entity.Foyer;
 import tn.esprit.tpfoyer.entity.Universite;
+import tn.esprit.tpfoyer.repository.iBlocRepository;
 import tn.esprit.tpfoyer.repository.iFoyerRepository;
 import tn.esprit.tpfoyer.repository.iUniversiteRepository;
 
 import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 @Service
@@ -16,6 +19,7 @@ public class UniversiteServices implements iUniversiteServices {
 
     final iUniversiteRepository UniversiteRepository;
     final iFoyerRepository foyerRepository;
+    final iBlocRepository blocRepository;
 
     @Override
     public Universite ajouterUniversite(Universite u) {
@@ -48,7 +52,7 @@ public class UniversiteServices implements iUniversiteServices {
     public Universite findUniversiteByNom(String nomUniversite) {
         return UniversiteRepository.findUniversiteByNom(nomUniversite);
     }
-
+    @Transactional
     @Override
     public Universite affecterFoyerAUniversite(long idFoyer, String nomUniversite) {
         Foyer foyer = foyerRepository.findById(idFoyer).orElse(null);
@@ -62,19 +66,20 @@ public class UniversiteServices implements iUniversiteServices {
         return universite;
     }
 
-    public Universite desaffecterFoyerAUniversite(long idFoyer, long idUniversite) {
+    @Override
+    public Foyer ajouterFoyerEtAffecterUniv(Foyer f, Long idUniv) {
+        return null;
+    }
+
+    @Transactional
+    @Override
+    public Universite desaffecterFoyerAUniversite(Long idUniversite) {
         Universite universite = UniversiteRepository.findById(idUniversite).orElse(null);
 
-        if (universite != null) {
-            // Vérifier si le foyer actuellement associé à l'université correspond à l'ID du foyer que vous souhaitez désaffecter.
-            if (universite.getFoyer() != null && universite.getFoyer().getIdFoyer() == idFoyer) {
-                // Désaffectez le foyer en le supprimant de l'université.
-                universite.setFoyer(null);
-                UniversiteRepository.save(universite);
-            }
-        }
-
-        return universite;
+        universite.setFoyer(null);
+        return UniversiteRepository.save(universite);
     }
+
+
 }
 
